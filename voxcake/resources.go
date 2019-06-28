@@ -1,0 +1,5 @@
+package voxcake
+
+func GetResourcePath() {
+
+}
