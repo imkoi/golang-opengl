@@ -20,11 +20,11 @@ import (
 
 type CameraController struct {
 }
-
+//Executing on startup
 func (cameraController *CameraController) Start() {
 
 }
-
+//Executing every frame
 func (cameraController *CameraController) Update() {
 	nFront := Vec3{0, 0, 0}.Sub(Camera.Front)
 
@@ -63,11 +63,11 @@ func (cameraController *CameraController) Update() {
 		Window.SetFullscreen(true)
 	}
 }
-
+//Informatin for engine (name of component for sorting)
 func (cameraController *CameraController) Name() string {
 	return "CameraController"
 }
-
+//Information for engine (to return some type from IComponent interface)
 func (cameraController *CameraController) Return() interface{} {
 	return cameraController
 }
