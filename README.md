@@ -1,16 +1,77 @@
-This code is a part of the VoxCake
+# VoxCakeGo
+VoxCakeGo is just the toy where you can render voxel models... Just at this moment.
+## Features
+- [X] Volume component;
+- [X] Camera component;
+- [X] Mesh component:
+- [ ] Math wrapper;
 
-Formats:
-1. Format for models: vcmod
-2. Format for maps: vcmap
+## Components
+You can create your own component which will be executed by engine.
+```go
+package main
 
-Prefixes:
-1. Prefix H in the class/script name means handler;
-2. Prefix U in the class/script name means utility;
-3. Prefix M in the class/script name means mono;
+import (
+	"fmt"
 
-VoxCake:
---Volume: used to create and manage volume
---Editor: used to edit the volume
-----Networking
-----Mono
+	. "./voxcake"
+	. "github.com/go-gl/mathgl/mgl32"
+)
+
+type CameraController struct {
+}
+//Executing on startup
+func (cameraController *CameraController) Start() {
+	fmt.Printf("%s", "CameraController was allocated!\n")
+}
+
+//Executing every frame
+func (cameraController *CameraController) Update() {
+	nFront := Vec3{0, 0, 0}.Sub(Camera.Front)
+
+	if Input.GetKeyDown(KeyCode.W) {
+		Camera.Translate(Camera.Front)
+	}
+	if Input.GetKeyDown(KeyCode.S) {
+		Camera.Translate(nFront)
+	}
+	if Input.GetKeyDown(KeyCode.A) {
+		Camera.Translate(Vec3.Normalize(Vec3.Cross(nFront, Camera.Up)))
+	}
+	if Input.GetKeyDown(KeyCode.D) {
+		Camera.Translate(Vec3.Normalize(Vec3.Cross(Camera.Front, Camera.Up)))
+	}
+
+	Camera.Rotate(Input.GetAxis("X"), Input.GetAxis("Y"))
+
+	if Input.GetButtonDown(0) {
+		//vec := RaycastVolume(&Camera.Position, &Camera.Direction, Volume("Map.vcmap"))
+		//vec := RaycastVolume(Camera.Position.X(), Camera.Position.Y(), Camera.Position.Z(), Camera.Front.X(), Camera.Front.Y(), Camera.Front.Z(), uint8(1), Volume("Map.vcmap"))
+		//fmt.Printf("Hitted: Vec3(%[1]d, %[2]d, %[3]d)\n", int(vec.X()), int(vec.Y()), int(vec.Z()))
+	}
+	if Input.GetButtonDown(1) {
+		fmt.Printf("%s", "WHEEL\n")
+	}
+	if Input.GetButtonDown(2) {
+		fmt.Printf("%s", "RIGHT\n")
+	}
+
+	if Input.GetKeyDown(KeyCode.Escape) {
+		Engine.Quit()
+	}
+
+	if Input.GetKeyDown(KeyCode.F) {
+		Window.SetFullscreen(true)
+	}
+}
+
+//Informatin for engine (name of component for sorting)
+func (cameraController *CameraController) Name() string {
+	return "CameraController"
+}
+
+//Information for engine (to return some type from IComponent interface)
+func (cameraController *CameraController) Return() interface{} {
+	return cameraController
+}
+```
