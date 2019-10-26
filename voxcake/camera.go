@@ -38,7 +38,7 @@ func NewCamera() *CameraStruct {
 	camera.Front = Vec3{0, 0, 1}
 	camera.Up = Vec3{0, 1, 0}
 
-	camera.Fov = 60.0
+	camera.Fov = 90.0
 	camera.DrawDistance = 1000.0
 
 	camera.lastX = float32(Window.Width / 2)
@@ -49,7 +49,7 @@ func NewCamera() *CameraStruct {
 
 func (camera *CameraStruct) Update() {
 	camera.view = LookAtV(camera.Position, Vec3.Add(camera.Position, camera.Front), camera.Up)
-	camera.projection = Perspective(DegToRad(camera.Fov), float32(Window.Width/Window.Height), 0.1, camera.DrawDistance)
+	camera.projection = Perspective(DegToRad(camera.Fov), float32(Window.Width)/float32(Window.Height), 0.05, camera.DrawDistance)
 }
 
 func (camera *CameraStruct) Translate(direction Vec3) {
