@@ -16,7 +16,7 @@ func UintToRGBA(value uint32) string {
 }
 
 func UintToR(value uint32) uint32 {
-	return uint32(uint8(value >> 16))
+	return uint32(uint8(value >> 0))
 }
 
 func UintToG(value uint32) uint32 {
@@ -24,7 +24,7 @@ func UintToG(value uint32) uint32 {
 }
 
 func UintToB(value uint32) uint32 {
-	return uint32(uint8(value >> 0))
+	return uint32(uint8(value >> 16))
 }
 
 func UintToA(value uint32) uint32 {
