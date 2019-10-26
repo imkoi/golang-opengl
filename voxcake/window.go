@@ -42,9 +42,7 @@ func NewWindow(title string, width int32, height int32) *windowStruct {
 	gl.DepthFunc(gl.LEQUAL)
 	gl.Viewport(0, 0, width, height)
 
-	if err != nil {
-		panic(err)
-	}
+	Debug.Check(err)
 	return &window
 }
 
@@ -97,8 +95,11 @@ func (window *windowStruct) IsOpen() bool {
 	return window.isOpen
 }
 
-func (window *windowStruct) glSwap() {
-	window.sdlWindow.GLSwap()
+func (window *windowStruct) Destroy() {
+	window.isOpen = false
+	defer window.sdlWindow.Destroy()
+	defer sdl.GLDeleteContext(window.context)
+	defer sdl.Quit()
 }
 
 func (window *windowStruct) pollEvent() {
@@ -118,9 +119,6 @@ func (window *windowStruct) pollEvent() {
 	gl.Clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
 }
 
-func (window *windowStruct) Destroy() {
-	window.isOpen = false
-	defer window.sdlWindow.Destroy()
-	defer sdl.GLDeleteContext(window.context)
-	defer sdl.Quit()
+func (window *windowStruct) glSwap() {
+	window.sdlWindow.GLSwap()
 }
