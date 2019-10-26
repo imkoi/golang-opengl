@@ -9,7 +9,7 @@ type EngineStruct struct {
 }
 
 func init() {
-	Window = *NewWindow("VoxCake", 1280, 720)
+	Window = *NewWindow("VoxCake", 1920, 1080)
 	Camera = *NewCamera()
 	Program = NewProgram(Vs, Fs)
 	Engine.components = make([]IComponent, 0)

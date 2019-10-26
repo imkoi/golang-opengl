@@ -10,7 +10,7 @@ func main() {
 	Window.SetRelativeMouseMode(true)
 
 	cameraController := new(CameraController)
-	volume := Volume("Map.vcmap")
+	volume := Volume("field.vxl")
 	Engine.AddComponent(cameraController)
 	Engine.AddComponent(volume)
 
