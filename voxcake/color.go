@@ -16,7 +16,7 @@ func UintToRGBA(value uint32) string {
 }
 
 func UintToR(value uint32) uint32 {
-	return uint32(uint8(value >> 0))
+	return uint32(uint8(value >> 16))
 }
 
 func UintToG(value uint32) uint32 {
@@ -24,7 +24,7 @@ func UintToG(value uint32) uint32 {
 }
 
 func UintToB(value uint32) uint32 {
-	return uint32(uint8(value >> 16))
+	return uint32(uint8(value >> 0))
 }
 
 func UintToA(value uint32) uint32 {
@@ -36,26 +36,7 @@ func CalculateAmbient(r uint32, g uint32, b uint32, ao float32) uint32 {
 	fg := float32(g) - float32(g)/ao
 	fb := float32(b) - float32(b)/ao
 
-	if fr > 255 {
-		fr = 255
-	}
-	if fr < 0 {
-		fr = 0
-	}
-	if fg > 255 {
-		fg = 255
-	}
-	if fg < 0 {
-		fg = 0
-	}
-	if fb > 255 {
-		fb = 255
-	}
-	if fb < 0 {
-		fb = 0
-	}
-
-	return RGBAToUint(uint32(fr), uint32(fg), uint32(fb), 255)
+	return ValidateRGBAValues(fr, fg, fb)
 }
 
 func CalculateLight(r uint32, g uint32, b uint32, ao float32) uint32 {
@@ -63,24 +44,30 @@ func CalculateLight(r uint32, g uint32, b uint32, ao float32) uint32 {
 	fg := float32(g) + float32(g)/ao
 	fb := float32(b) + float32(b)/ao
 
-	if fr > 255 {
-		fr = 255
+	return ValidateRGBAValues(fr, fg, fb)
+}
+
+func ValidateRGBAValues(r float32, g float32, b float32) uint32 {
+	if r > 255 {
+		r = 255
 	}
-	if fr < 0 {
-		fr = 0
-	}
-	if fg > 255 {
-		fg = 255
-	}
-	if fg < 0 {
-		fg = 0
-	}
-	if fb > 255 {
-		fb = 255
-	}
-	if fb < 0 {
-		fb = 0
+	if r < 0 {
+		r = 0
 	}
 
-	return RGBAToUint(uint32(fr), uint32(fg), uint32(fb), 255)
+	if g > 255 {
+		g = 255
+	}
+	if g < 0 {
+		g = 0
+	}
+
+	if b > 255 {
+		b = 255
+	}
+	if b < 0 {
+		b = 0
+	}
+
+	return RGBAToUint(uint32(r), uint32(g), uint32(b), 255)
 }

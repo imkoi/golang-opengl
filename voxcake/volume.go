@@ -132,7 +132,7 @@ func (volume *volumeStruct) Rotate(x, y, z int) {
 			for k := 0; k < volume.depth; k++ {
 				voxel := volume.data[i][j][k]
 				if voxel != 0 {
-					volume.data[i][volume.height-j-1][k] = voxel
+					volume.data[i][volume.height-j-1][volume.depth-k-1] = voxel
 					volume.data[i][j][k] = 0
 				}
 			}

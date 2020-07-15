@@ -245,40 +245,42 @@ func SetFace(v1 Vec3, v2 Vec3, v3 Vec3, v4 Vec3, index int, color uint32, light 
 	flip = false
 }
 
-func GetAmbient(color uint32, b1 uint32, b2 uint32, b3 uint32, vertex uint8, flip *bool) uint32 {
-	if b1 != 0 && b3 != 0 {
-		if vertex == 1 || vertex == 3 {
-			*flip = true
-		}
-		return CalculateAmbient(UintToR(color), UintToG(color), UintToB(color), AmbientOcclusion[2])
-	} else if (b1 != 0 && b2 != 0) || (b2 != 0 && b3 != 0) {
-		return CalculateAmbient(UintToR(color), UintToG(color), UintToB(color), AmbientOcclusion[1])
-	} else if b1 != 0 || b3 != 0 {
-		return CalculateAmbient(UintToR(color), UintToG(color), UintToB(color), AmbientOcclusion[0])
-	} else if b2 != 0 {
-		if vertex == 1 || vertex == 3 {
-			*flip = true
-		}
-		return CalculateAmbient(UintToR(color), UintToG(color), UintToB(color), AmbientOcclusion[0])
-	}
+func GetLight(color uint32, b1 uint32, b2 uint32, b3 uint32, b11 uint32, b12 uint32, b13 uint32, vertex uint8, flip *bool) uint32 {
+	/*
+		if b1 == 0 && b3 == 0 && b11 == 0 && b13 == 0 {
+			if vertex == 1 || vertex == 3 {
+				*flip = true
+			}
+			return CalculateLight(UintToR(color), UintToG(color), UintToB(color), EdgeLight[2])
+		} else if (b1 == 0 && b11 == 0 && b2 == 0 && b12 == 0) || (b2 == 0 && b12 == 0 && b3 == 0 && b13 == 0) {
+			return CalculateLight(UintToR(color), UintToG(color), UintToB(color), EdgeLight[1])
+		} else if (b1 == 0 && b11 == 0) || (b3 == 0 && b13 == 0) {
+			return CalculateLight(UintToR(color), UintToG(color), UintToB(color), EdgeLight[0])
+		} else if b2 == 0 && b12 == 0 {
+			if vertex == 1 || vertex == 3 {
+				*flip = true
+			}
+			return CalculateLight(UintToR(color), UintToG(color), UintToB(color), EdgeLight[0])
+		}*/
 	return color
 }
 
-func GetLight(color uint32, b1 uint32, b2 uint32, b3 uint32, b11 uint32, b12 uint32, b13 uint32, vertex uint8, flip *bool) uint32 {
-	if b1 == 0 && b3 == 0 && b11 == 0 && b13 == 0 {
-		if vertex == 1 || vertex == 3 {
-			*flip = true
-		}
-		return CalculateLight(UintToR(color), UintToG(color), UintToB(color), EdgeLight[2])
-	} else if (b1 == 0 && b11 == 0 && b2 == 0 && b12 == 0) || (b2 == 0 && b12 == 0 && b3 == 0 && b13 == 0) {
-		return CalculateLight(UintToR(color), UintToG(color), UintToB(color), EdgeLight[1])
-	} else if (b1 == 0 && b11 == 0) || (b3 == 0 && b13 == 0) {
-		return CalculateLight(UintToR(color), UintToG(color), UintToB(color), EdgeLight[0])
-	} else if b2 == 0 && b12 == 0 {
-		if vertex == 1 || vertex == 3 {
-			*flip = true
-		}
-		return CalculateLight(UintToR(color), UintToG(color), UintToB(color), EdgeLight[0])
-	}
+func GetAmbient(color uint32, b1 uint32, b2 uint32, b3 uint32, vertex uint8, flip *bool) uint32 {
+	/*
+		if b1 != 0 && b3 != 0 {
+			if vertex == 1 || vertex == 3 {
+				*flip = true
+			}
+			return CalculateAmbient(UintToR(color), UintToG(color), UintToB(color), AmbientOcclusion[2])
+		} else if (b1 != 0 && b2 != 0) || (b2 != 0 && b3 != 0) {
+			return CalculateAmbient(UintToR(color), UintToG(color), UintToB(color), AmbientOcclusion[1])
+		} else if b1 != 0 || b3 != 0 {
+			return CalculateAmbient(UintToR(color), UintToG(color), UintToB(color), AmbientOcclusion[0])
+		} else if b2 != 0 {
+			if vertex == 1 || vertex == 3 {
+				*flip = true
+			}
+			return CalculateAmbient(UintToR(color), UintToG(color), UintToB(color), AmbientOcclusion[0])
+		}*/
 	return color
 }
