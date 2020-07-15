@@ -76,4 +76,4 @@ func (cameraController *CameraController) Return() interface{} {
 }
 ```
 
-![Preview]()
+![Preview](https://github.com/imkoi/golang-opengl/blob/master/screenshots/preview.png)
